@@ -26,7 +26,7 @@ function newRect(x, y, w, h) {
             Rect.h = h;
         },
         x2: function() { return x + w; },
-        y2: function() { return x + w; }
+        y2: function() { return y + h; }
         
     };
     Rect.init(x, y, w, h);
@@ -44,7 +44,7 @@ var cursorCanvas;
 var cursorContext;
 var cursorRect = 0;
 var cursorIntervalId = 0;
-var cursorBrushOutlineColor = '#888';
+var cursorBrushOutlineColor = '#444';
 
 var brushColor = '#df4b26';
 var brushSize = 2;
@@ -57,6 +57,8 @@ function addClick(x, y, dragging) {
 
 function resizeBrushBy(n) {
     brushSize += n;
+    if (brushSize < 1)
+        brushSize = 1;
 }
 
 function redraw() {
@@ -87,26 +89,26 @@ function resizeCanvasToScreen() {
     resizeCanvas(document.width - 60, document.height - 60);
 }
 
-function drawCursor() {
+function drawCursor(event) {
     if (cursorRect) {
-        cursorContext.clearRect(cursorRect.x, cursorRect.y, cursorRect.x2(), cursorRect.y2());
+        cursorContext.clearRect(cursorRect.x, cursorRect.y, cursorRect.w, cursorRect.h);
     }
-    var mouseX = e.pageX - cursorCanvas.offsetLeft;
-    var mouseY = e.pageY - cursorCanvas.offsetTop;
+    var mouseX = event.pageX - cursorCanvas.offsetLeft;
+    var mouseY = event.pageY - cursorCanvas.offsetTop;
     
-    context.beginPath();
-    context.arc(mouseX, mouseY, brushSize, 0, Math.PI * 2, false);
-    context.closePath();
-    context.strokeStyle = cursorBrushOutlineColor;
-    context.lineJoin = 'round';
-    context.lineWidth = 1;
-    context.stroke();
+    cursorContext.beginPath();
+    cursorContext.arc(mouseX, mouseY, brushSize/2, 0, Math.PI * 2, false);
+    cursorContext.closePath();
+    cursorContext.strokeStyle = cursorBrushOutlineColor;
+    cursorContext.lineJoin = 'round';
+    cursorContext.lineWidth = 1;
+    cursorContext.stroke();
     
     cursorRect = newRect(
-        mouseX-brushSize,
-        mouseY-brushSize,
-        brushSize*2,
-        brushSize*2);
+        mouseX-brushSize*2,
+        mouseY-brushSize*2,
+        brushSize*4,
+        brushSize*4);
 }
 
 function loadImage(url) {
@@ -119,18 +121,15 @@ function loadImage(url) {
     }
 }
 
-function setImgurData(url, thumbnail_url) {
-    if ($('#imgur_thumb').html().length > 0) {
-        $('#imgur_thumb').hide('fast');
-    }
-    $('#imgur_thumb').html('');
-    $('#imgur_thumb').append('<div class="center"><a href="'+url+'"><img src="'+thumbnail_url+'" /></a></div>');
+function setImgurThumb(url, thumbnail_url) {
+    $('#imgur_thumb').hide('fast');
+    $('#imgur_thumb').html('<a href="'+url+'"><img src="'+thumbnail_url+'" /></a>');
     $('#imgur_thumb').show('fast');
 }
 
 function parseImgurData(jsonData) {
     $('#imgur_url').val(jsonData.upload.links.original);
-    setImgurData(jsonData.upload.links.imgur_page, jsonData.upload.links.small_square);
+    setImgurThumb(jsonData.upload.links.imgur_page, jsonData.upload.links.small_square);
 }
 
 function uploadImageToImgur(canvas, api_key) {
@@ -152,7 +151,6 @@ function uploadImageToImgur(canvas, api_key) {
     xhr.onload = function() {
         var imgur_data = JSON.parse(xhr.responseText);
         parseImgurData(imgur_data);
-        $('#imgur_thumb').html('');
     }
     xhr.send(fd);
  }
@@ -169,20 +167,14 @@ $(document).ready(function() {
     });
     resizeCanvasToScreen();
     
-    $('#canvas').mousewheel(function(e, delta) {
+    
+    $('#canvas_cursor').mousewheel(function(e, delta) {
         resizeBrushBy(delta);
+        drawCursor(e);
         return false;
     });
     
-    $('#canvas_cusor').mouseenter(function(e) {
-        cursorIntervalId = setInterval(drawCursor(), 1000/60);
-    });
-    
-    $('#canvas_cusor').mouseleave(function(e) {
-        if (cursorIntervalId) {
-            clearInterval(cursorIntervalId);
-        }
-    });
+    $('#canvas_cursor').mousemove(drawCursor);
     
     $('.resize').click(function() {
         var width = $(this).val().split(" x ")[0];
@@ -214,14 +206,14 @@ $(document).ready(function() {
     });
     
     $('#load').mousedown(function() {
-        loadImage($('#raw_url').val());
+        loadImage($('#load_url').val());
     });
     
     $('#upload').click(function() {
         uploadImageToImgur(canvas, imgur_api_key);
     });
     
-    $('#canvas').mousedown(function(e) {
+    $('#canvas_cursor').mousedown(function(e) {
         $('#toggle').trigger('mousedown');
         if (e.which == 1) {
             var mouseX = e.pageX - this.offsetLeft;
@@ -233,7 +225,7 @@ $(document).ready(function() {
         }
     });
     
-    $('#canvas').mousemove(function(e) {
+    $('#canvas_cursor').mousemove(function(e) {
         if (paint) {
             var mouseX = e.pageX - this.offsetLeft;
             var mouseY = e.pageY - this.offsetTop;
@@ -243,11 +235,11 @@ $(document).ready(function() {
         }
     });
     
-    $('#canvas').mouseup(function(e){
+    $('#canvas_cursor').mouseup(function(e){
         paint = false;
     });
     
-    $('#canvas').mouseenter(function(e){
+    $('#canvas_cursor').mouseenter(function(e){
         if (e.which == 0) {
             paint = false;
         }

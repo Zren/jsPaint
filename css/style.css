@@ -49,6 +49,8 @@ label input.tag:active, label input.tag:hover {
   opacity: 1;
 }
 
+#canvas_cursor { z-index: 1; }
+
 .canvas {
   position: absolute;
   top: 0;
