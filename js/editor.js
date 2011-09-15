@@ -154,7 +154,7 @@ function uploadImageToImgur(canvas, api_key) {
         parseImgurData(imgur_data);
         $('#imgur_thumb').html('');
     }
-    //xhr.send(fd);
+    xhr.send(fd);
  }
 
 $(document).ready(function() {
