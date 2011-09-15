@@ -1,0 +1,21 @@
+upload: {image:{name:null, title:null, caption:null, hash:eyhl6, deletehash:hUJ1UcYSoYh4Oyq,…},…}
+    image: {name:null, title:null, caption:null, hash:eyhl6, deletehash:hUJ1UcYSoYh4Oyq,…}
+        animated: "false"
+        bandwidth: 0
+        caption: null
+        datetime: "2011-09-14 23:45:51"
+        deletehash: "hUJ1UcYSoYh4Oyq"
+        hash: "eyhl6"
+        height: 480
+        name: null
+        size: 7838
+        title: null
+        type: "image/png"
+        views: 0
+        width: 640
+    links: {original:http://i.imgur.com/eyhl6.png, imgur_page:http://imgur.com/eyhl6,…}
+        delete_page: "http://imgur.com/delete/hUJ1UcYSoYh4Oyq"
+        imgur_page: "http://imgur.com/eyhl6"
+        large_thumbnail: "http://i.imgur.com/eyhl6l.jpg"
+        original: "http://i.imgur.com/eyhl6.png"
+        small_square: "http://i.imgur.com/eyhl6s.jpg"

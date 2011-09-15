@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Editor</title>
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+  <script type="text/javascript" src="js/jquery.mousewheel.min.js"></script>
+  <script type="text/javascript" src="js/blob.js"></script>
+  <script type="text/javascript" src="js/editor.js"></script>
+  <link rel='stylesheet' href='css/style.css' media='all' />
+</head>
+<body>
+  <div class="center">
+    <canvas id="canvas_cursor" class="canvas"></canvas>
+    <canvas id="canvas" class="canvas"></canvas>
+  </div>
+  
+  
+  <div id="sidebar">
+    <div id="toggle"></div>
+    <div id="sidebar_content">
+      <div class="menu">
+        <h3>Image Properties</h3>
+        <label for="width">
+          <span>Width</span>
+          <input type="text" id="width" size="6"></input>
+        </label>
+        <label for="height">
+          <span>Height</span>
+          <input type="text" id="height" size="6"></input>
+        </label>
+        <div class="center">
+          <input type="button" class="resize" value="640 x 480"></input>
+          <input type="button" id="resize_screen" value="Screen Size"></input>
+        </div>
+      </div>
+      <div class="menu">
+        <h3>Load Image</h3>
+        <img src="img/icon/zen-nikki/download.png" id="load" alt="Load" class="right fade-hover" />
+        <label for="raw_url">
+          <span>URL</span>
+          <input type="text" id="load_url" class="tag" size="20"></input>
+        </label>
+        <div class="clear"></div>
+      </div>
+      <div class="menu">
+        <h3>Upload to Imgur</h3>
+        <img src="img/icon/zen-nikki/save.png" id="upload" alt="Upload" class="right fade-hover" />
+        <label for="imgur_url">
+          <span>URL</span>
+          <input type="text" id="imgur_url" class="tag" size="20" readonly="readonly"></input>
+        </label>
+        <div id="imgur_thumb" class="center"></div>
+        <div class="clear"></div>
+        <!--<input type="button" id="upload" value="Upload to Imgur" class="center"></input>-->
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+</body>
+</html>

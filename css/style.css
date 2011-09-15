@@ -1,0 +1,125 @@
+body {
+  background: #333;
+}
+
+label {
+  clear: left;
+  display: block;
+  width: auto;
+}
+label span {
+  float: left;
+  display: block;
+  width: 3em;
+  text-align: right;
+  margin-right: 0.5em;
+}
+
+label input {
+  background: #060606;
+  color: #0f0;
+  border: 1px solid #222;
+}
+
+label input.tag:active, label input.tag:hover {
+  background: #111;
+  color: #fff;
+}
+
+.center { text-align: center; }
+.clear { clear:both; }
+.inline { display: inline; }
+.right { float: right;}
+.left{ float: left; }
+.right-wrap { float: right; clear: right; }
+.left-wrap { float: left; clear: left; }
+
+.fade-hover {
+  -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  filter: alpha(opacity=50);
+  -moz-opacity: 0.5;
+  -khtml-opacity: 0.5;
+  opacity: 0.5;
+}
+.fade-hover:hover {
+  -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  filter: alpha(opacity=100);
+  -moz-opacity: 1;
+  -khtml-opacity: 1;
+  opacity: 1;
+}
+
+.canvas {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+}
+
+#canvas {
+  cursor: crosshair;
+  border: 1px solid black;
+  background: #fff;
+  -webkit-box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
+  -moz-box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
+  box-shadow: 0 0 3px 2px #222;
+}
+
+#imgur_thumb {
+  margin: 10px;
+}
+
+#sidebar {
+	position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  height: 100%;
+  color: #fff;
+  background: #000;
+  /* RGBa with 0.6 opacity */
+  background: rgba(0, 0, 0, 0.9);
+}
+
+@media screen {
+  body>div#sidebar {
+    position:fixed;
+  }
+}
+
+#sidebar #toggle  {
+  float: left;
+  width: 20px;
+  height: 100%;
+  background: #800;
+}
+
+#sidebar #toggle:hover  {
+  background: #f00;
+}
+
+#sidebar #sidebar_content  {
+  float: right;
+  width: 300px;
+}
+
+#sidebar .menu {
+  margin: 10px;
+  background: #111;
+  background: rgba(15, 15, 15, 0.75);
+  padding: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}
+
+.menu h3 {
+  margin-top: 0px;
+  font-size: 12px;
+  font-family: sans-serif;
+  border-bottom: 1px solid #333;
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
